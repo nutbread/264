@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="description" content="Easier x264 interaction with 32bit and 64bit processes" />
+	<meta name="keywords" content="x264,h264,video,encoding,ffmpeg,ffprobe,python" />
+	<meta name="author" content="nutbread" />
+	<title>x264 Video Encoding Tools</title>
+	<link rel="shortcut icon" href="favicon.png" />
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+
+<div class="header_bar">
+	<div class="main main_no_overflow header">
+
+		<table class="header_table"><tbody>
+			<tr>
+				<td class="header_table_cell">
+					<div class="header_table_name">
+						<a class="header_table_name_user link_external link_author light_underline" href="https://github.com/nutbread" target="_blank"><span>nutbread</span></a><span class="header_table_name_separator">/</span><a href="" class="header_table_name_title link_external link_title light_underline"><span>264</span></a>
+					</div>
+				</td>
+				<td class="header_table_cell">
+					<div class="header_table_separator"></div>
+				</td>
+				<td class="header_table_cell header_table_cell_full">
+					<div class="header_table_description">
+						<div class="header_table_description_name">x264 video encoding tools</div>
+						<div class="header_table_description_body">Easier x264 interaction with 32bit and 64bit processes</div>
+					</div>
+				</td>
+				<td class="header_table_cell">
+					<a class="header_table_view_on_github link_external link_view_on_github light_nohover_color_hover" href="https://github.com/nutbread/264" target="_blank">
+						<div class="header_table_view_on_github_line1">view on</div>
+						<div class="header_table_view_on_github_line2">github</div>
+					</a>
+				</td>
+			</tr>
+		</tbody></table>
+
+	</div>
+</div>
+<div class="main body">
+
+	<h1 id="x264.py"><span class="hardlink_text">x264.py<a class="hardlink" href="#x264.py"></a></span></h1>
+	<p>
+		<code>x264.py</code> is designed to make it easier to pipe input from ffmpeg into x264. This is typically useful if the input must be processed in a 32bit process, but the output should be encoded using a 64bit application. <span class="light">(see: AviSynth)</span>
+	</p>
+	<p>
+		<code>x264.py</code> cuts out the work of detecting the resolution, colorspace, frame rate, and frame count of the input video, along with the setup of the piped commands. Typically, it's as easy as replacing the <strong><code>x264</code></strong> part of the command line with <strong><code>x264.py</code></strong>.
+	</p>
+
+	<h4 id="required.software"><span class="hardlink_text">Required software<a class="hardlink" href="#required.software"></a></span></h4>
+	<p>
+		<ul>
+			<li><a class="link_external light_underline" href="https://www.python.org/downloads/" target="_blank"><span>python</span></a> &ndash; versions 2.x or 3.x should both work</li>
+			<li><a class="link_external light_underline" href="https://www.ffmpeg.org/download.html" target="_blank"><span>ffmpeg &amp; ffprobe</span></a> &ndash; for video info and piping</li>
+			<li><a class="link_external light_underline" href="https://www.videolan.org/developers/x264.html" target="_blank"><span>x264</span></a> &ndash; for video encoding</li>
+		</ul>
+	</p>
+
+	<h4 id="download"><span class="hardlink_text">Download<a class="hardlink" href="#download"></a></span></h4>
+	<p>
+		<ul>
+			<li><a class="link_codebase light_underline" href="https://github.com/nutbread/264/blob/master/src/x264.py" target="_blank"><span>x264.py</span></a> / <a class="link_codebase_raw light_underline" href="https://raw.githubusercontent.com/nutbread/264/master/src/x264.py" target="_blank" download="x264.py"><span>download</span></a> &ndash; main python application</li>
+		</ul>
+	</p>
+
+	<h4 id="script.arguments"><span class="hardlink_text">Script Arguments<a class="hardlink" href="#script.arguments"></a></span></h4>
+	<p>
+		The following describes some of the flags that can be used where <code>&lt;script-arguments&gt;</code> appears in the next section. Additional info about these and other flags can be found by executing <code class="block">x264.py --usage</code>.
+	</p>
+	<p>
+		<ul>
+			<li>
+				<code><strong>--ffmpeg</strong> &lt;exe_path&gt;</code> &ndash; Path to the executable ffmpeg file<br />
+				Defaults to <code>"ffmpeg"</code>; if ffmpeg is in the <code>PATH</code> environment variable, it will automatically work.<br />
+				<span class="light">This typically points to a 32bit version of ffmpeg.</span>
+			</li>
+			<li>
+				<code><strong>--ffprobe</strong> &lt;exe_path&gt;</code> &ndash; Path to the executable ffprobe file<br />
+				Defaults to <code>"ffprobe"</code>; if ffprobe is in the <code>PATH</code> environment variable, it will automatically work.<br />
+				<span class="light">This typically points to a 32bit version of ffprobe, but there are circumstances under which a 64bit version might be used.</span>
+			</li>
+			<li>
+				<code><strong>--x264</strong> &lt;exe_path&gt;</code> &ndash; Path to the executable x264 file<br />
+				Defaults to <code>"x264"</code>; if x264 is in the <code>PATH</code> environment variable, it will automatically work.<br />
+				<span class="light">This typically points to a 64bit version of x264.</span>
+			</li>
+			<li>
+				<code><strong>--no-command</strong></code> | <code><strong>--no-ffmpeg-stderr</strong></code> | <code><strong>--no-time</strong></code> | <code><strong>--no-return-codes</strong></code> &ndash; Suppress a certain type of output<br />
+				These 4 flags specify that a certain type of output should be omitted. If all 4 flags are included, the only output that will display is the output from the x264 process.
+			</li>
+		</ul>
+	</p>
+
+	<h4 id="usage"><span class="hardlink_text">Usage<a class="hardlink" href="#usage"></a></span></h4>
+	<p>
+		Examples following will use this command as the base command to be modified:
+		<div class="codeblock">x264 --crf 18 --preset veryslow --output video.mkv input.avs</div>
+		<span class="light">Note that it is important that the input file (<code>input.avs</code>) appears as the <em>last</em> argument in each example!</span>
+	</p>
+	<p>
+		<ul>
+			<li>
+				<div class="codeblock">x264<span class="colored">.py</span> --crf 18 --preset veryslow --output video.mkv input.avs</div>
+				This example runs it with <code>x264.py</code>, piping the video from ffmpeg into x264 before outputting the video.
+			</li>
+			<li>
+				<div class="codeblock">x264<span class="colored">.py &lt;script-arguments&gt; @</span> --crf 18 --preset veryslow --output video.mkv input.avs</div>
+				This example shows the setup for specifying additional settings for <code>x264.py</code>.<br />
+				<span class="light">The <code>@</code> signals the end of the <code>script-arguments</code>.</span>
+			</li>
+			<li>
+				<div class="codeblock">
+					x264<span class="colored">.py</span><br />
+					<span class="colored">--ffmpeg ffmpeg-x86.exe --ffprobe ffprobe-x86.exe --x264 x264-10b-x64.exe @</span><br />
+					--crf 18 --preset veryslow --output video.mkv input.avs
+				</div>
+				This example directly specifies the executables: 32bit ffmpeg and ffprobe; 64bit x264 <em>with 10bit color output</em>
+			</li>
+		</ul>
+	</p>
+
+
+</div>
+
+
+</body>
+</html>
+
